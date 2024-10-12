@@ -10,7 +10,9 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -35,7 +37,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         createRoleIfNotFound("ROLE_ADMIN");
         createRoleIfNotFound("ROLE_USER");
 
-        Set<Role> adminRoles = new HashSet<>();
+        List<Role> adminRoles = new ArrayList<>();
         adminRoles.add(roleService.findByName("ROLE_ADMIN").orElse(null));
         adminRoles.add(roleService.findByName("ROLE_USER").orElse(null));
 
@@ -54,7 +56,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         user1.setAge((short) 30);
         user1.setUsername("user@mail.ru");
         user1.setPassword("user");
-        Set<Role> userRole = new HashSet<>();
+        List<Role> userRole = new ArrayList<>();
         userRole.add(roleService.findByName("ROLE_USER").orElse(null));
         user1.setRoles(userRole);
         userService.save(user1);
